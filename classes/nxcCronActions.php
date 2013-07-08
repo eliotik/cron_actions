@@ -1,6 +1,6 @@
 <?php
 
-class nxcCronActions extends nxcCronActionsBase
+class CronActions extends CronActionsBase
 {
     private static $instance = null;
 
@@ -12,7 +12,7 @@ class nxcCronActions extends nxcCronActionsBase
     public static function getInstance()
     {
         if (null === self::$instance)
-            self::$instance = new nxcCronActions();
+            self::$instance = new CronActions();
         return self::$instance;
     }
 
@@ -34,7 +34,7 @@ class nxcCronActions extends nxcCronActionsBase
         if ( is_null($data['method']) or empty($data['method']) ) return false;
         if ( is_null($data['data']) or !is_array($data['data']) ) return false;
 
-        $action = new nxcCronAction(self::getInstance());
+        $action = new CronAction(self::getInstance());
         return $action->create($data, $seconds);
     }
 }
