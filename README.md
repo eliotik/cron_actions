@@ -1,4 +1,4 @@
-nxc_cron_actions
+cron_actions
 ================
 
 Extension for eZ Publish
@@ -7,7 +7,7 @@ Push events to cronjob
 
 Example of use:
 ```javascript
-nxcCronActions::push(
+CronActions::push(
     array(
         'class' => 'ClassName',
         'method' => 'MethodName',
