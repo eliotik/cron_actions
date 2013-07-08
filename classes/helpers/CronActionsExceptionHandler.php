@@ -1,11 +1,5 @@
 <?php
-/**
- * @author ap@nxc.no
- * @copyright 2013 NXC
- * @package nxc_cron_actions
- */
-
-class nxcCronActionsExceptionHandler
+class CronActionsExceptionHandler
 {
     protected static $ErrorList = array();
 
@@ -23,7 +17,7 @@ class nxcCronActionsExceptionHandler
         $error = $e->getMessage( );
         if ( $log ){
             eZDebug::writeError( $error, $title );
-            eZLog::write( '['.self::getIP().'] '.$error, 'nxc_cron_actions.log' );
+            eZLog::write( '['.self::getIP().'] '.$error, 'cron_actions.log' );
         }
         self::$ErrorList[$title][] = $e->getMessage( );
     }

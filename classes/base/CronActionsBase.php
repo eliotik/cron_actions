@@ -1,12 +1,12 @@
 <?php
 
-abstract class nxcCronActionsBase
+abstract class CronActionsBase
 {
     /**
-     * @var array array of nxcCronAction objects
+     * @var array array of CronAction objects
      */
     private $actions = array();
-    const TABLE = 'nxc_cron_actions';
+    const TABLE = 'cron_actions';
     const STATUS_FREE = 0;
     const STATUS_LOCKED = 1;
     const STATUS_REMOVE = 2;
@@ -32,7 +32,7 @@ abstract class nxcCronActionsBase
         {
             foreach($actions as $action)
             {
-                $action_object = new nxcCronAction($this);
+                $action_object = new CronAction($this);
                 $action_object->init(intval($action['id']),unserialize($action['data']));
                 $this->actions[] = $action_object;
             }

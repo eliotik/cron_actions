@@ -1,9 +1,9 @@
 <?php
 
-class nxcCronAction implements nxcCronActionInterface
+class CronAction implements CronActionInterface
 {
     /**
-     * @var nxcCronActions
+     * @var CronActions
      */
     private $parent;
     private $id = null;
@@ -12,7 +12,7 @@ class nxcCronAction implements nxcCronActionInterface
     private $data = array();
     private $status = null;
 
-    public function __construct(nxcCronActions $parent)
+    public function __construct(CronActions $parent)
     {
         $this->parent = $parent;
         $this->status = $parent::STATUS_FREE;

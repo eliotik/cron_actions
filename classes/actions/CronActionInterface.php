@@ -1,9 +1,9 @@
 <?php
 
-interface nxcCronActionInterface
+interface CronActionInterface
 {
 
-    public function __construct(nxcCronActions $parent);
+    public function __construct(CronActions $parent);
     public function create(array $data = array(), $seconds = 65);
     public function init($id, array $data = array());
     public function run();
