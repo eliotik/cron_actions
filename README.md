@@ -2,6 +2,7 @@ nxc_cron_actions
 ================
 
 Extension for eZ Publish
+
 Push events to cronjob
 
 Example of use:
