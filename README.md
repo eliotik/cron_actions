@@ -13,7 +13,8 @@ CronActions::push(
         'method' => 'MethodName',
         'data' => array(
             'ArgumentName' => 'ArgumentValue'
-        )
+        ),
+        'description' => "Some usefull description"
     ),
     300
 );
