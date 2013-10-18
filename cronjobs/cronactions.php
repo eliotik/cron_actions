@@ -1,31 +1,30 @@
 <?php
-/*
- * @run:  php runcronjobs.php -d -d cronactions
+/**
+ * @description: script for crontab part of CronActions class functionality
+ * @run        :  php runcronjobs.php -d -d cronactions
  **/
-try
-{
+use extension\cron_actions\classes\helpers\CronActionsExceptionHandler;
+use extension\cron_actions\classes\CronActions;
+
+try {
     $eol = "\n";
-    echo 'Starting work...'.$eol;
+    echo 'Starting work...' . $eol;
     CronActions::getInstance()->getActions()->executeActions();
 
-} catch ( Exception $e ) {
-    CronActionsExceptionHandler::add( $e );
+} catch (Exception $e) {
+    CronActionsExceptionHandler::add($e);
 }
 
 $errorList = CronActionsExceptionHandler::getErrorMessageList();
 
-if ( count($errorList) > 0 )
-{
+if (count($errorList) > 0) {
     $errors = '';
-    foreach($errorList as $error) $errors .= $error.$eol;
+    foreach ($errorList as $error) {
+        $errors .= $error . $eol;
+    }
 
-    echo 'Got error: '.$errors.$eol;
-    eZDebug::writeError( $errors, 'Error occured');
-
-    //$script->shutdown( 1 );
-    //eZExecution::cleanExit();
-
+    echo 'Got error: ' . $errors . $eol;
+    \eZDebug::writeError($errors, 'Error occured');
 } else {
-    echo $eol.'Done with cron actions...'.$eol.$eol;
+    echo $eol . 'Done with cron actions...' . $eol . $eol;
 }
-?>

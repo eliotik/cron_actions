@@ -6,4 +6,4 @@ ExtensionDirectories[]=cron_actions
 [CronjobPart-cronactions]
 Scripts[]=cronactions.php
 
-*/ ?>
+*/
