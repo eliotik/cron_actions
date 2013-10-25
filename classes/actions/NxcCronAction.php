@@ -1,13 +1,13 @@
 <?php
-namespace extension\cron_actions\classes\actions;
+namespace extension\nxc_cron_actions\classes\actions;
 
-use extension\cron_actions\classes\interfaces\CronActionInterface;
-use extension\cron_actions\classes\CronActions;
+use extension\nxc_cron_actions\classes\interfaces\NxcCronActionInterface;
+use extension\nxc_cron_actions\classes\NxcCronActions;
 
-class CronAction implements CronActionInterface
+class NxcCronAction implements NxcCronActionInterface
 {
     /**
-     * @var CronActions
+     * @var NxcCronActions
      */
     private $parent;
     private $id = null;
@@ -16,7 +16,7 @@ class CronAction implements CronActionInterface
     private $data = array();
     private $status = null;
 
-    public function __construct(CronActions $parent)
+    public function __construct(NxcCronActions $parent)
     {
         $this->parent = $parent;
         $this->status = $parent::STATUS_FREE;
@@ -36,7 +36,7 @@ class CronAction implements CronActionInterface
         $this->status = $status;
         $timeStr = date("d.m.Y H:i:s", $time);
         $logData = "Created action: (run at $timeStr) data: " . var_export($data, true);
-        CronActions::log($logData);
+        NxcCronActions::log($logData);
         $this->parent->sendMail($logData);
         return true;
     }
@@ -71,11 +71,11 @@ class CronAction implements CronActionInterface
         }
 
         if ($result === true) {
-            CronActions::log(
+            NxcCronActions::log(
                 "[{$this->id}] Remove action: " . $this->class . '::' . $this->method . ", data: " . var_export($this->data, true)
             );
         } else {
-            CronActions::log(
+            NxcCronActions::log(
                 "[{$this->id}] There is a need to Postpone action: " . $this->class . '::' . $this->method . ", data: " . var_export(
                     $this->data,
                     true
@@ -94,7 +94,7 @@ class CronAction implements CronActionInterface
         $id = $this->id;
         $query = "delete from {$table} where id = {$id}";
         $db->query($query);
-        CronActions::log(
+        NxcCronActions::log(
             "[{$this->id}] Action removed: " . $this->class . '::' . $this->method . ", data: " . var_export($this->data, true)
         );
     }
@@ -111,7 +111,7 @@ class CronAction implements CronActionInterface
         $query = "update {$table} set status = {$status}, execute_time = {$time} where id = {$id}";
         $db->query($query);
         $this->status = $status;
-        CronActions::log(
+        NxcCronActions::log(
             "[{$this->id}] Action postponed: " . $this->class . '::' . $this->method . ", data: " . var_export($this->data, true)
         );
     }
@@ -126,7 +126,7 @@ class CronAction implements CronActionInterface
         $query = "update {$table} set status = {$status} where id = {$id}";
         $db->query($query);
         $this->status = $status;
-        CronActions::log(
+        NxcCronActions::log(
             "[{$this->id}] Action locked: " . $this->class . '::' . $this->method . ", data: " . var_export($this->data, true)
         );
     }

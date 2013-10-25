@@ -1,15 +1,15 @@
 <?php
-namespace extension\cron_actions\classes;
+namespace extension\nxc_cron_actions\classes;
 
-use extension\cron_actions\classes\actions\CronAction;
+use extension\nxc_cron_actions\classes\actions\NxcCronAction;
 
-class CronActions
+class NxcCronActions
 {
     /**
-     * @var array array of CronAction objects
+     * @var array array of NxcCronAction objects
      */
     private $actions = array();
-    const TABLE = 'cron_actions';
+    const TABLE = 'nxc_cron_actions';
     const STATUS_FREE = 0;
     const STATUS_LOCKED = 1;
     const STATUS_REMOVE = 2;
@@ -24,7 +24,7 @@ class CronActions
     public static function getInstance()
     {
         if (null === self::$instance) {
-            self::$instance = new CronActions();
+            self::$instance = new NxcCronActions();
         }
 
         return self::$instance;
@@ -60,7 +60,7 @@ class CronActions
             return false;
         }
 
-        $action = new CronAction(self::getInstance());
+        $action = new NxcCronAction(self::getInstance());
 
         return $action->create($data, $seconds);
     }
@@ -68,7 +68,7 @@ class CronActions
     private function initConfig()
     {
         $this->config = array();
-        $ini = \eZINI::instance("cron_actions.ini");
+        $ini = \eZINI::instance("nxc_cron_actions.ini");
         $this->config['send_mail'] = intval($ini->variable("GeneralSettings", "SendEmail")) > 0;
         if ($this->config['send_mail'] == true) {
             $this->config['mail'] = array();
@@ -82,9 +82,9 @@ class CronActions
     }
 
     public function sendMail($body) {
-        CronActions::log("trying to send email...");
+        NxcCronActions::log("trying to send email...");
         if (($this->config['send_mail'] == false) or empty($body)) return false;
-        CronActions::log("sending email: start");
+        NxcCronActions::log("sending email: start");
         $mail = new \eZMail();
         $mail->setSender($this->config['mail']['sender']);
         $mail->setReceiver($this->config['mail']['receiver']);
@@ -93,14 +93,14 @@ class CronActions
         if (!$result = \eZMailTransport::send($mail)) {
             self::log("Cannot send email notification:\n".$body);
         }
-        CronActions::log("sending email: end");
+        NxcCronActions::log("sending email: end");
         return $result;
     }
 
     public static function log($data)
     {
-        \eZDebug::writeError($data, "CronActions");
-        \eZLog::write($data, 'cron_actions.log');
+        \eZDebug::writeError($data, "NxcCronActions");
+        \eZLog::write($data, 'nxc_cron_actions.log');
     }
 
     public function getActions()
@@ -117,7 +117,7 @@ class CronActions
 
         if (!empty($actions)) {
             foreach ($actions as $action) {
-                $action_object = new CronAction($this);
+                $action_object = new NxcCronAction($this);
                 $action_object->init(intval($action['id']), unserialize($action['data']));
                 $this->actions[] = $action_object;
             }
@@ -135,7 +135,7 @@ class CronActions
         }
 
         /**
-         * @var CronAction $action
+         * @var NxcCronAction $action
          */
         foreach ($this->actions as $index => $action) {
             $num = $index + 1;

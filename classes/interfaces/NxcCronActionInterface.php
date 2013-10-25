@@ -1,11 +1,11 @@
 <?php
-namespace extension\cron_actions\classes\interfaces;
+namespace extension\nxc_cron_actions\classes\interfaces;
 
-use extension\cron_actions\classes\CronActions;
+use extension\nxc_cron_actions\classes\NxcCronActions;
 
-interface CronActionInterface
+interface NxcCronActionInterface
 {
-    public function __construct(CronActions $parent);
+    public function __construct(NxcCronActions $parent);
 
     public function create(array $data = array(), $seconds = 65);
 

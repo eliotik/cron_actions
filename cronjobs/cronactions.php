@@ -1,21 +1,24 @@
 <?php
 /**
- * @description: script for crontab part of CronActions class functionality
+ * @author     : ap@nxc.no
+ * @version    : 260613
+ * @copyright  : NXC (c) 2013
+ * @description: script for crontab part of NxcCronActions class functionality
  * @run        :  php runcronjobs.php -d -d cronactions
- **/
-use extension\cron_actions\classes\helpers\CronActionsExceptionHandler;
-use extension\cron_actions\classes\CronActions;
+ * */
+use extension\nxc_cron_actions\classes\helpers\NxcCronActionsExceptionHandler;
+use extension\nxc_cron_actions\classes\NxcCronActions;
 
 try {
     $eol = "\n";
     echo 'Starting work...' . $eol;
-    CronActions::getInstance()->getActions()->executeActions();
+    NxcCronActions::getInstance()->getActions()->executeActions();
 
 } catch (Exception $e) {
-    CronActionsExceptionHandler::add($e);
+    NxcCronActionsExceptionHandler::add($e);
 }
 
-$errorList = CronActionsExceptionHandler::getErrorMessageList();
+$errorList = NxcCronActionsExceptionHandler::getErrorMessageList();
 
 if (count($errorList) > 0) {
     $errors = '';
