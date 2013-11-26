@@ -84,6 +84,7 @@ class NxcCronAction implements NxcCronActionInterface
         }
 
         $this->remove();
+        return $result;
     }
 
     public function remove()
@@ -129,5 +130,20 @@ class NxcCronAction implements NxcCronActionInterface
         NxcCronActions::log(
             "[{$this->id}] Action locked: " . $this->class . '::' . $this->method . ", data: " . var_export($this->data, true)
         );
+    }
+
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param array $data
+     * @return NxcCronAction
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
     }
 }

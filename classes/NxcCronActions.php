@@ -126,6 +126,25 @@ class NxcCronActions
         return $this;
     }
 
+    public function getAction($id)
+    {
+        $this->actions = array();
+
+        $db = \eZDB::instance();
+        $table = self::TABLE;
+        $query = "select * from {$table} where id={$id}";
+
+        $action = $db->arrayQuery($query);
+
+        if (!empty($action)) {
+            $action_object = new NxcCronAction($this);
+            $action_object->init(intval($action[0]['id']), unserialize($action[0]['data']));
+            return $action_object;
+        }
+
+        return null;
+    }
+
     public function executeActions()
     {
         $count = count($this->actions);
