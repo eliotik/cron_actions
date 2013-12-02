@@ -7,3 +7,4 @@ ExtensionDirectories[]=nxc_cron_actions
 Scripts[]=cronactions.php
 
 */
+?>
