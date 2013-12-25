@@ -35,7 +35,7 @@ class NxcCronAction implements NxcCronActionInterface
         $db->query($query);
         $this->status = $status;
         $timeStr = date("d.m.Y H:i:s", $time);
-        $logData = "Created action: (run at $timeStr) data: " . var_export($data, true);
+        $logData = "Created action: (run at $timeStr) data: " . var_export(unserialize(stripslashes($data)), true);
         NxcCronActions::log($logData);
         $this->parent->sendMail($logData);
         return true;

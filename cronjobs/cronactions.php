@@ -8,6 +8,7 @@
  * */
 use extension\nxc_cron_actions\classes\helpers\NxcCronActionsExceptionHandler;
 use extension\nxc_cron_actions\classes\NxcCronActions;
+$user = \eZUser::currentUser();
 
 try {
     $eol = "\n";
